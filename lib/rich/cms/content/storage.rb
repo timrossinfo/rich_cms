@@ -81,7 +81,7 @@ module Rich
               @store ||= begin
                 opts = case engine
                        when "active_record"
-                         {:connection => YAML.load_file(File.expand_path("config/database.yml", Rails.root))[Rails.env],
+                         {:connection => YAML.load(ERB.new(File.read('config/database.yml')).result)[Rails.env],
                           :table_name => @klass.name.tableize}
                        else
                          {}
